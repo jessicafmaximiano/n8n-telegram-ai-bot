@@ -1,0 +1,221 @@
+{
+  "name": "bot-estudos-ti",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": "={{ [\"message\"] }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "0861ea8a-e1cd-41ce-9730-c8eed5efa772",
+      "name": "Telegram Trigger",
+      "webhookId": "ecd4274a-bdc1-47e1-a2be-eb1ec93f8226",
+      "credentials": {
+        "telegramApi": {
+          "id": "FCxPR9plTmnpgvaA",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "Você é um tutor e assistente de TI focado em ajudar estudantes e profissionais de tecnologia. Responda de forma clara, didática e direta. Se o usuário perguntar sobre um conceito (como SQL, Bancos de Dados ou Java), explique o conceito de forma simples com exemplos práticos."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "9e380496-8613-4d02-aa13-7cc305b11b1e",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        304,
+        224
+      ],
+      "id": "c42c4032-27ef-484a-a842-422b81ec97e3",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "l932CuUYVHS2Zxn7",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ String($('AI Agent').item.json.output).replace(/[\\_*\\[\\]()~`>#+\\-=|{}.!]/g, '') }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        576,
+        0
+      ],
+      "id": "d72d2c09-851e-4aeb-81ba-283a42cf33e5",
+      "name": "Send a text message",
+      "webhookId": "e7c393d4-b870-4775-b39f-bb1fcd816e64",
+      "credentials": {
+        "telegramApi": {
+          "id": "FCxPR9plTmnpgvaA",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1QeP39y24CujeFbn6N8tAJ2oR7AYN0iEb1ZaKwKXJG1I",
+          "mode": "list",
+          "cachedResultName": "DúvidaBOT-n8n-atividade4",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QeP39y24CujeFbn6N8tAJ2oR7AYN0iEb1ZaKwKXJG1I/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Página1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QeP39y24CujeFbn6N8tAJ2oR7AYN0iEb1ZaKwKXJG1I/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Data": "={{ new Date($json.result.date * 1000).toLocaleString('pt-PT') }}",
+            "Pergunta": "={{ $('Telegram Trigger').item.json.message.text }}",
+            "Resposta": "={{ $json.result.text }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Data",
+              "displayName": "Data",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Pergunta",
+              "displayName": "Pergunta",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Resposta",
+              "displayName": "Resposta",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        800,
+        0
+      ],
+      "id": "2af790a4-7922-401f-aecd-afbd9ffb8fe5",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleApi": {
+          "id": "bXaRqD5NHTEkWL0n",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "dc0053e0-6fc3-487b-88df-0e130e1f31ee",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "47c4b3a6b8e8b12d3f710705506a301e781c0949c71f8e3c5f0efef2720a00b1"
+  },
+  "nodeGroups": [],
+  "id": "tRUOC3HuiEIc5bsv",
+  "tags": []
+}
