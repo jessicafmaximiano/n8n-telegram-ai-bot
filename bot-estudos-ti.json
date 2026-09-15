@@ -13,14 +13,7 @@
         0
       ],
       "id": "0861ea8a-e1cd-41ce-9730-c8eed5efa772",
-      "name": "Telegram Trigger",
-      "webhookId": "ecd4274a-bdc1-47e1-a2be-eb1ec93f8226",
-      "credentials": {
-        "telegramApi": {
-          "id": "FCxPR9plTmnpgvaA",
-          "name": "Telegram account"
-        }
-      }
+      "name": "Telegram Trigger"
     },
     {
       "parameters": {
@@ -51,13 +44,7 @@
         224
       ],
       "id": "c42c4032-27ef-484a-a842-422b81ec97e3",
-      "name": "Groq Chat Model",
-      "credentials": {
-        "groqApi": {
-          "id": "l932CuUYVHS2Zxn7",
-          "name": "Groq account"
-        }
-      }
+      "name": "Groq Chat Model"
     },
     {
       "parameters": {
@@ -72,14 +59,7 @@
         0
       ],
       "id": "d72d2c09-851e-4aeb-81ba-283a42cf33e5",
-      "name": "Send a text message",
-      "webhookId": "e7c393d4-b870-4775-b39f-bb1fcd816e64",
-      "credentials": {
-        "telegramApi": {
-          "id": "FCxPR9plTmnpgvaA",
-          "name": "Telegram account"
-        }
-      }
+      "name": "Send a text message"
     },
     {
       "parameters": {
@@ -87,17 +67,13 @@
         "operation": "append",
         "documentId": {
           "__rl": true,
-          "value": "1QeP39y24CujeFbn6N8tAJ2oR7AYN0iEb1ZaKwKXJG1I",
-          "mode": "list",
-          "cachedResultName": "DúvidaBOT-n8n-atividade4",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QeP39y24CujeFbn6N8tAJ2oR7AYN0iEb1ZaKwKXJG1I/edit?usp=drivesdk"
+          "value": "SUBSTITUA_PELO_ID_DA_PLANILHA",
+          "mode": "id"
         },
         "sheetName": {
           "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Página1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QeP39y24CujeFbn6N8tAJ2oR7AYN0iEb1ZaKwKXJG1I/edit#gid=0"
+          "value": "Página1",
+          "mode": "name"
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -148,13 +124,7 @@
         0
       ],
       "id": "2af790a4-7922-401f-aecd-afbd9ffb8fe5",
-      "name": "Append row in sheet",
-      "credentials": {
-        "googleApi": {
-          "id": "bXaRqD5NHTEkWL0n",
-          "name": "Google Sheets account"
-        }
-      }
+      "name": "Append row in sheet"
     }
   ],
   "pinData": {},
@@ -204,18 +174,12 @@
       ]
     }
   },
-  "active": true,
+  "active": false,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "dc0053e0-6fc3-487b-88df-0e130e1f31ee",
-  "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "47c4b3a6b8e8b12d3f710705506a301e781c0949c71f8e3c5f0efef2720a00b1"
-  },
   "nodeGroups": [],
-  "id": "tRUOC3HuiEIc5bsv",
   "tags": []
 }
